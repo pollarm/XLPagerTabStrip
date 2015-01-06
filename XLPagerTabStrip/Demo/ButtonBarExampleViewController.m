@@ -37,6 +37,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.buttonBarView.selectedBar setBackgroundColor:[UIColor orangeColor]];
+    
+    self.containerView.scrollEnabled = NO;
 }
 
 #pragma mark - XLPagerTabStripViewControllerDataSource

@@ -71,7 +71,7 @@
 
 -(void)updateSelectedBarPositionWithAnimation:(BOOL)animation swipeDirection:(XLPagerTabStripDirection)swipeDirection
 {
-    CGRect frame = self.selectedBar.frame;
+
     UICollectionViewCell * cell = [self.dataSource collectionView:self cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectedOptionIndex inSection:0]];
     if (cell){
         if (swipeDirection != XLPagerTabStripDirectionNone){
@@ -87,16 +87,16 @@
             
         }
     }
-    frame.size.width = cell.frame.size.width;
-    frame.origin.x = cell.frame.origin.x;
-    frame.origin.y = cell.frame.size.height - frame.size.height;
+    
+    CGPoint center = CGPointMake(cell.center.x, self.selectedBar.center.y);
+    
     if (animation){
         [UIView animateWithDuration:0.3 animations:^{
-            [self.selectedBar setFrame:frame];
+            [self.selectedBar setCenter:center];
         }];
     }
     else{
-        self.selectedBar.frame = frame;
+        self.selectedBar.center = center;
     }
 }
 
@@ -106,9 +106,11 @@
 -(UIView *)selectedBar
 {
     if (_selectedBar) return _selectedBar;
-    _selectedBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 5, self.frame.size.width, 5)];
+    _selectedBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 10, 5, 5)];
     _selectedBar.layer.zPosition = 9999;
     _selectedBar.backgroundColor = [UIColor blackColor];
+    _selectedBar.layer.cornerRadius = 2.5;
+    _selectedBar.layer.masksToBounds = YES;
     return _selectedBar;
 }
 

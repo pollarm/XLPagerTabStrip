@@ -82,7 +82,7 @@
     [super viewWillAppear:animated];
     UICollectionViewLayoutAttributes *attributes = [self.buttonBarView layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentIndex inSection:0]];
     CGRect cellRect = attributes.frame;
-    [self.buttonBarView.selectedBar setFrame:CGRectMake(cellRect.origin.x, self.buttonBarView.frame.size.height - 5, cellRect.size.width, 5)];
+    [self.buttonBarView.selectedBar setFrame:CGRectMake(cellRect.origin.x, self.buttonBarView.frame.size.height - 10, 5, 5)];
 }
 
 -(void)reloadPagerTabStripView
@@ -146,9 +146,11 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.buttonBarView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     [self.buttonBarView moveToIndex:indexPath.item animated:YES swipeDirection:XLPagerTabStripDirectionNone];
     self.shouldUpdateButtonBarView = NO;
-    [self moveToViewControllerAtIndex:indexPath.item];  
+    [self moveToViewControllerAtIndex:indexPath.item];
+    
 }
 
 #pragma merk - UICollectionViewDataSource
